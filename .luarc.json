@@ -1,0 +1,28 @@
+{
+    "$schema": "https://raw.githubusercontent.com/LuaLS/vscode-lua/master/setting/schema.json",
+    "runtime.version": "LuaJIT",
+
+    "diagnostics.disable": [
+        // some of our libraries are cross-compatible and get flagged
+        "deprecated",
+        // LuaCATS ---@module annotation causes a luadoc error but we don't use luadoc
+        "luadoc-miss-module-name"
+    ],
+    "diagnostics.globals": [
+        "love",
+        "jit",
+        "lldebugger"
+    ],
+    "diagnostics.ignoredFiles": "Opened",
+
+    "hint.semicolon": "Disable",
+
+    "workspace.checkThirdParty": false,
+    "workspace.ignoreDir": [
+        ".vscode"
+    ],
+    "workspace.library": [
+        "${3rd}/love2d/library"
+    ],
+    "completion.autoRequire": false
+}
