@@ -110,13 +110,33 @@ local UIElement = Class(
 UIElement.layout = HorizontalFlexLayout
 UIElement.TYPE = "UIElement"
 
+local function onChildrenChanged(uiElement)
+  if uiElement.parent then
+    -- resizing segments does not make much sense if the segments have to be resized later anyway
+    -- so bubble just straight up
+    onChildrenChanged(uiElement.parent)
+  else
+    -- and then only resize from the root element
+    local oWidth = uiElement.width
+    local oHeight = uiElement.height
+
+    uiElement.layout.resize(uiElement)
+
+    if uiElement.controlsWindow then
+      if oWidth ~= uiElement.width or oHeight ~= uiElement.height then
+        love.window.updateMode(uiElement.width, uiElement.height, {})
+      end
+    end
+  end
+end
+
 function UIElement:addChild(uiElement)
   if uiElement.parent then
     error("Tried to give a uiElement more than one parent")
   else
     self.children[#self.children + 1] = uiElement
     uiElement.parent = self
-    self.layout.onChildrenChanged(self)
+    onChildrenChanged(uiElement.parent)
   end
 end
 
@@ -126,6 +146,7 @@ function UIElement:detach()
       if child.id == self.id then
         table.remove(self.parent.children, i)
         self:onDetach()
+        onChildrenChanged(self.parent)
         self.parent = nil
         break
       end
