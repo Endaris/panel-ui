@@ -7,7 +7,7 @@ local HorizontalFlexLayout = setmetatable({}, {__index = Layout})
 function HorizontalFlexLayout.getMinWidth(uiElement)
   local w = uiElement.padding * 2 + uiElement.childGap * (#uiElement.children - 1)
 
-  for i, child in ipairs(uiElement.children) do
+  for _, child in ipairs(uiElement.children) do
     w = w + child.width
   end
 
@@ -19,35 +19,11 @@ function HorizontalFlexLayout.getMinHeight(uiElement)
   local h = uiElement.padding * 2
   local maxHeight = 0
 
-  for i, child in ipairs(uiElement.children) do
+  for _, child in ipairs(uiElement.children) do
     maxHeight = math.max(maxHeight, child.height)
   end
 
   return h + maxHeight
-end
-
----@param uiElement UiElement
----@return number
-function HorizontalFlexLayout.fitSizeWidth(uiElement)
-  for i, child in ipairs(uiElement.children) do
-    child.layout.fitSizeWidth(child)
-  end
-  local w = uiElement.layout.getMinWidth(uiElement)
-  uiElement.width = math.max(w, uiElement.minWidth)
-
-  return uiElement.width - w
-end
-
----@param uiElement UiElement
----@return number
-function HorizontalFlexLayout.fitSizeHeight(uiElement)
-  for i, child in ipairs(uiElement.children) do
-    child.layout.fitSizeHeight(child)
-  end
-  local h = uiElement.layout.getMinHeight(uiElement)
-  uiElement.height = math.max(h, uiElement.minHeight)
-
-  return uiElement.height - h
 end
 
 ---@param uiElement UiElement
@@ -91,7 +67,7 @@ function HorizontalFlexLayout.growChildrenWidth(uiElement)
       local widthToAdd = math.min(delta, remainingWidth / smallestCount)
 
       if delta * smallestCount >= remainingWidth then
-        for i, growable in ipairs(growables) do
+        for _, growable in ipairs(growables) do
           if growable.newWidth == smallest then
             local toAdd = math.min(widthToAdd, growable.maxWidth - growable.newWidth)
             growable.newWidth = growable.newWidth + toAdd
@@ -103,7 +79,7 @@ function HorizontalFlexLayout.growChildrenWidth(uiElement)
           remainingWidth = 0
         end
       else
-        for i, growable in ipairs(growables) do
+        for _, growable in ipairs(growables) do
           if growable.newWidth == smallest then
             local toAdd = math.min(widthToAdd, growable.maxWidth - growable.newWidth)
             growable.newWidth = growable.newWidth + toAdd
@@ -121,35 +97,35 @@ function HorizontalFlexLayout.growChildrenWidth(uiElement)
       end
     end
 
-    for i, growable in ipairs(growables) do
+    for _, growable in ipairs(growables) do
       growable.width = growable.newWidth
     end
   end
 
-  for i, child in ipairs(uiElement.children) do
+  for _, child in ipairs(uiElement.children) do
     child.layout.growChildrenWidth(child)
   end
 end
 
 ---@param uiElement UiElement
 function HorizontalFlexLayout.growChildrenHeight(uiElement)
-  for i, child in ipairs(uiElement.children) do
+  for _, child in ipairs(uiElement.children) do
     if child.vFill then
       child.height = math.min(uiElement.height - uiElement.padding * 2, child.maxHeight)
-      child.layout.growChildrenHeight(child)
     end
+    child.layout.growChildrenHeight(child)
   end
 end
 
 ---@param uiElement UiElement
 function HorizontalFlexLayout.positionChildren(uiElement)
   local remainingWidth = uiElement.width - (uiElement.padding * 2 + uiElement.childGap * (#uiElement.children - 1))
-  for i, child in ipairs(uiElement.children) do
+  for _, child in ipairs(uiElement.children) do
     remainingWidth = remainingWidth - child.width
   end
 
   local x = uiElement.padding
-  for i, child in ipairs(uiElement.children) do
+  for _, child in ipairs(uiElement.children) do
     if child.hAlign == "left" then
       child.x = x
     elseif child.hAlign == "center" then
@@ -168,7 +144,7 @@ function HorizontalFlexLayout.positionChildren(uiElement)
     x = x + uiElement.childGap + child.width
   end
 
-  for i, child in ipairs(uiElement.children) do
+  for _, child in ipairs(uiElement.children) do
     child.layout.positionChildren(child)
   end
 end

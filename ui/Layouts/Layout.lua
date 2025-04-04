@@ -23,22 +23,35 @@ function Layout.resize(uiElement, width, height)
   uiElement.layout.positionChildren(uiElement)
 end
 
+---@param uiElement UiElement
 function Layout.fitSizeWidth(uiElement)
-  error("Layout does not implement fitSizeWidth")
+  for _, child in ipairs(uiElement.children) do
+    child.layout.fitSizeWidth(child)
+  end
+  local w = uiElement.layout.getMinWidth(uiElement)
+  uiElement.width = math.max(w, uiElement.minWidth)
 end
 
+---@param uiElement UiElement
+function Layout.fitSizeHeight(uiElement)
+  for _, child in ipairs(uiElement.children) do
+    child.layout.fitSizeHeight(child)
+  end
+  local h = uiElement.layout.getMinHeight(uiElement)
+  uiElement.height = math.max(h, uiElement.minHeight)
+end
+
+---@param uiElement UiElement
 function Layout.growChildrenWidth(uiElement)
   error("Layout does not implement growChildrenWidth")
 end
 
-function Layout.fitSizeHeight(uiElement)
-  error("Layout does not implement fitSizeHeight")
-end
-
+---@param uiElement UiElement
 function Layout.growChildrenHeight(uiElement)
   error("Layout does not implement growChildrenHeight")
 end
 
+---@param uiElement UiElement
 function Layout.positionChildren(uiElement)
   error("Layout does not implement positionChildren")
 end

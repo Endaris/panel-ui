@@ -3,6 +3,7 @@ local ui = {
   Text = require("ui.Text"),
   Layouts = {
     HorizontalFlexLayout = require("ui.Layouts.HorizontalFlexLayout"),
+    VerticalFlexLayout = require("ui.Layouts.VerticalFlexLayout"),
   }
 }
 
