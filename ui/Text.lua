@@ -13,11 +13,9 @@ local Text = Class(function(self, options)
   self.maxWidth = options.maxWidth or self.font:getWidth(self.text)
   self.minHeight = options.minHeight or self.font:getHeight()
   self.height = options.height or self.font:getHeight()
-  --self.maxHeight = math.huge
+  self.maxHeight = options.maxHeight or (#words * self.font:getHeight())
   self.hFill = true
-  
-
-  -- TODO: calculate expected min/max width/height based on font with a string split
+  self.vFill = false
 end,
 UiElement)
 

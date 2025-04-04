@@ -3,7 +3,6 @@ local ui = require("ui")
 local w, h = love.window.getDesktopDimensions(1)
 local uiRoot = ui.UIElement({
   childGap = 32,
-  layout = ui.Layouts.HorizontalLayout(),
   padding = 32,
   width = w,
   height = h - 60,
@@ -14,7 +13,6 @@ uiRoot.controlsWindow = true
 
 local panel = ui.UIElement({
   childGap = 32,
-  layout = ui.Layouts.HorizontalLayout(),
   padding = 32,
   backgroundColor = {0.7, 0, 0.5, 1},
   maxWidth = 1920,

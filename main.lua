@@ -35,8 +35,8 @@ function love.resize(width, height)
   if uiRoot then
     uiRoot.minWidth = width
     uiRoot.minHeight = height
-    print("calling uiRoot.layout:resize with width " .. width .. " height " .. height)
-    uiRoot.layout:resize(uiRoot, width, height)
+    print("calling uiRoot.layout.resize with width " .. width .. " height " .. height)
+    uiRoot.layout.resize(uiRoot, width, height)
     if uiRoot.width > width or uiRoot.height > height then
       love.window.updateMode(math.max(uiRoot.width, width), math.max(uiRoot.height, height), {})
     end

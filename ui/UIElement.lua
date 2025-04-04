@@ -24,6 +24,7 @@ local HorizontalLayout = require("ui.Layouts.HorizontalLayout")
 ---@field padding number
 ---@field childGap number
 ---@field id integer unique identifier of the element
+---@field layout Layout
 ---@field onTouch function? touch callback for when the element is being touched
 ---@field onDrag function? touch callback for when the mouse touching the element is dragged across the screen
 ---@field onRelease function? touch callback for when the mouse touching the element is released
@@ -65,7 +66,7 @@ local UIElement = Class(
     self.y = options.y or 0
 
     self.backgroundColor = options.backgroundColor or {1, 1, 1, 0}
-    self.layout = options.layout or HorizontalLayout()
+    self.layout = options.layout
     self.padding = options.padding or 0
     self.childGap = options.childGap or 0
 
@@ -106,6 +107,7 @@ local UIElement = Class(
   end
 )
 
+UIElement.layout = HorizontalLayout
 UIElement.TYPE = "UIElement"
 
 function UIElement:addChild(uiElement)
@@ -114,7 +116,7 @@ function UIElement:addChild(uiElement)
   else
     self.children[#self.children + 1] = uiElement
     uiElement.parent = self
-    self.layout:onChildrenChanged(self)
+    self.layout.onChildrenChanged(self)
   end
 end
 
