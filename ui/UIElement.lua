@@ -1,5 +1,3 @@
-local Graphics = require("Graphics")
-local VerticalLayout = require("ui.Layouts.VerticalLayout")
 local HorizontalLayout = require("ui.Layouts.HorizontalLayout")
 
 ---@alias color { [1]: number, [2]: number, [3]: number, [4]: number }
@@ -117,30 +115,7 @@ function UIElement:addChild(uiElement)
     self.children[#self.children + 1] = uiElement
     uiElement.parent = self
     self.layout:onChildrenChanged(self)
-    --uiElement:resize()
   end
-end
-
-function UIElement:resize()
-  if self.hFill and self.parent then
-    self.width = self.parent.width
-  end
-
-  if self.vFill and self.parent then
-    self.height = self.parent.height
-  end
-
-  self:onResize()
-
-  if self.hFill or self.vFill then
-    for _, child in ipairs(self.children) do
-      child:resize()
-    end
-  end
-end
-
--- overridable function to define extra behaviour to the element itself on resize
-function UIElement:onResize()
 end
 
 function UIElement:detach()
@@ -162,13 +137,11 @@ end
 
 function UIElement:getScreenPos()
   local x, y = 0, 0
-  local xOffset, yOffset = 0, 0
   if self.parent then
     x, y = self.parent:getScreenPos()
-    xOffset, yOffset = Graphics.getAlignmentOffset(self.parent, self)
   end
 
-  return x + self.x + xOffset, y + self.y + yOffset
+  return x + self.x, y + self.y
 end
 
 -- passes a retranslation request through the tree to reach all Labels
@@ -203,9 +176,7 @@ end
 function UIElement:drawChildren()
   for _, uiElement in ipairs(self.children) do
     if uiElement.isVisible then
-      --Graphics.applyAlignment(self, uiElement)
       uiElement:draw()
-      --Graphics.resetAlignment()
     end
   end
 end

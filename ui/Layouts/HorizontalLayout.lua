@@ -121,7 +121,10 @@ function HorizontalLayout:growChildrenWidth(uiElement, remainingWidth)
 
     for i, growable in ipairs(growables) do
       growable.width = growable.newWidth
-      growable.layout:growChildrenWidth(growable, growable.width - growable.layout:getMinWidth(growable))
+    end
+
+    for i, child in ipairs(uiElement.children) do
+      child.layout:growChildrenWidth(child, child.width - child.layout:getMinWidth(child))
     end
   end
 end
@@ -139,10 +142,28 @@ end
 
 ---@param uiElement UiElement
 function HorizontalLayout:positionChildren(uiElement)
+  local remainingWidth = uiElement.width - (uiElement.padding * 2 + uiElement.childGap * (#uiElement.children - 1))
+  for i, child in ipairs(uiElement.children) do
+    remainingWidth = remainingWidth - child.width
+  end
+
   local x = uiElement.padding
   for i, child in ipairs(uiElement.children) do
-    child.x = x
-    child.y = uiElement.padding
+    if child.hAlign == "left" then
+      child.x = x
+    elseif child.hAlign == "center" then
+      child.x = x + remainingWidth / 2
+    elseif child.hAlign == "right" then
+      child.x = x + remainingWidth
+    end
+
+    if child.vAlign == "top" then
+      child.y = uiElement.padding
+    elseif child.vAlign == "center" then
+      child.y = (uiElement.height - child.height) / 2
+    elseif child.vAlign == "bottom" then
+      child.y = (uiElement.height - child.height) - uiElement.padding
+    end
     x = x + uiElement.childGap + child.width
   end
 

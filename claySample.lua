@@ -32,7 +32,8 @@ local section1 = ui.Text({
 })
 
 local section2 = ui.UIElement({
-  hFill = true,
+  --hFill = true,
+  hAlign = "center",
   vFill = true,
   minWidth = 100,
   --width = 100,
@@ -42,8 +43,22 @@ local section2 = ui.UIElement({
   backgroundColor = {0, 0, 1, 0.5}
 })
 
+local section5 = ui.UIElement({
+  --hFill = true,
+  hAlign = "center",
+  vAlign = "bottom",
+  minWidth = 100,
+  --width = 100,
+  maxWidth = 500,
+  height = 200,
+  maxHeight = 700,
+  backgroundColor = {0, 0, 1, 0.5}
+})
+
 local section3 = ui.UIElement({
-  hFill = true,
+  --hFill = true,
+  hAlign = "right",
+  vAlign = "center",
   padding = 64,
   minWidth = 300,
   height = 300,
@@ -58,6 +73,7 @@ section3:addChild(section4)
 
 panel:addChild(section1)
 panel:addChild(section2)
+panel:addChild(section5)
 panel:addChild(section3)
 uiRoot:addChild(panel)
 
