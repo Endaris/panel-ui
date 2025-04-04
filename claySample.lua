@@ -21,6 +21,7 @@ local panel = ui.UIElement({
   minHeight = 450,
   hFill = true,
   vFill = true,
+  layout = ui.Layouts.VerticalFlexLayout,
 })
 
 local section1 = ui.Text({
@@ -44,7 +45,7 @@ local section2 = ui.UIElement({
 local section5 = ui.UIElement({
   --hFill = true,
   hAlign = "center",
-  vAlign = "bottom",
+  --vAlign = "bottom",
   minWidth = 100,
   --width = 100,
   maxWidth = 500,

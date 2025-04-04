@@ -1,7 +1,7 @@
-local Layout = require("ui.Layouts.Layout")
+local FlexLayout = require("ui.Layouts.FlexLayout")
 
----@class VerticalFlexLayout : Layout
-local VerticalFlexLayout = setmetatable({}, {__index = Layout})
+---@class VerticalFlexLayout : FlexLayout
+local VerticalFlexLayout = setmetatable({}, {__index = FlexLayout})
 
 ---@param uiElement UiElement
 function VerticalFlexLayout.getMinWidth(uiElement)
@@ -112,8 +112,8 @@ function VerticalFlexLayout.growChildrenWidth(uiElement)
   for _, child in ipairs(uiElement.children) do
     if child.hFill then
       child.width = math.min(uiElement.width - uiElement.padding * 2, child.maxWidth)
-      child.layout.growChildrenWidth(child)
     end
+    child.layout.growChildrenWidth(child)
   end
 end
 

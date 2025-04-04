@@ -1,30 +1,10 @@
----@class Layout
-local Layout = {}
+local Layout = require("ui.Layouts.Layout")
+
+---@class FlexLayout : Layout
+local FlexLayout = setmetatable({}, {__index = Layout})
 
 ---@param uiElement UiElement
----@param width number?
----@param height number?
-function Layout.resize(uiElement, width, height)
-  uiElement.layout.fitSizeWidth(uiElement)
-  if width then
-    uiElement.width = math.max(width, uiElement.width)
-  end
-  uiElement.layout.growChildrenWidth(uiElement)
-
-  -- transform width to height for width-to-height supporting uiElements based on the width pass
-  uiElement:setMinHeightForWidth()
-
-  uiElement.layout.fitSizeHeight(uiElement)
-  if height then
-    uiElement.height = math.max(height, uiElement.height)
-  end
-  uiElement.layout.growChildrenHeight(uiElement)
-
-  uiElement.layout.positionChildren(uiElement)
-end
-
----@param uiElement UiElement
-function Layout.fitSizeWidth(uiElement)
+function FlexLayout.fitSizeWidth(uiElement)
   for _, child in ipairs(uiElement.children) do
     child.layout.fitSizeWidth(child)
   end
@@ -33,7 +13,7 @@ function Layout.fitSizeWidth(uiElement)
 end
 
 ---@param uiElement UiElement
-function Layout.fitSizeHeight(uiElement)
+function FlexLayout.fitSizeHeight(uiElement)
   for _, child in ipairs(uiElement.children) do
     child.layout.fitSizeHeight(child)
   end
@@ -41,20 +21,42 @@ function Layout.fitSizeHeight(uiElement)
   uiElement.height = math.max(h, uiElement.minHeight)
 end
 
----@param uiElement UiElement
-function Layout.growChildrenWidth(uiElement)
-  error("Layout does not implement growChildrenWidth")
+function FlexLayout.updateWidths(uiElement, width)
+  uiElement.layout.fitSizeWidth(uiElement)
+  if width then
+    uiElement.width = math.max(width, uiElement.width)
+  end
+  uiElement.layout.growChildrenWidth(uiElement)
+end
+
+function FlexLayout.updateHeights(uiElement, height)
+  uiElement.layout.fitSizeHeight(uiElement)
+  if height then
+    uiElement.height = math.max(height, uiElement.height)
+  end
+  uiElement.layout.growChildrenHeight(uiElement)
 end
 
 ---@param uiElement UiElement
-function Layout.growChildrenHeight(uiElement)
-  error("Layout does not implement growChildrenHeight")
+---@return number
+function FlexLayout.getMinWidth(uiElement)
+  error("FlexLayout does not implement getMinWidth")
 end
 
 ---@param uiElement UiElement
-function Layout.positionChildren(uiElement)
-  error("Layout does not implement positionChildren")
+---@return number
+function FlexLayout.getMinHeight(uiElement)
+  error("FlexLayout does not implement getMinHeight")
 end
 
+---@param uiElement UiElement
+function FlexLayout.growChildrenWidth(uiElement)
+  error("FlexLayout does not implement growChildrenWidth")
+end
 
-return Layout
+---@param uiElement UiElement
+function FlexLayout.growChildrenHeight(uiElement)
+  error("FlexLayout does not implement growChildrenHeight")
+end
+
+return FlexLayout

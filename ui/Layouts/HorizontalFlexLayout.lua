@@ -1,7 +1,7 @@
-local Layout = require("ui.Layouts.Layout")
+local FlexLayout = require("ui.Layouts.FlexLayout")
 
----@class HorizontalFlexLayout : Layout
-local HorizontalFlexLayout = setmetatable({}, {__index = Layout})
+---@class HorizontalFlexLayout : FlexLayout
+local HorizontalFlexLayout = setmetatable({}, {__index = FlexLayout})
 
 ---@param uiElement UiElement
 function HorizontalFlexLayout.getMinWidth(uiElement)

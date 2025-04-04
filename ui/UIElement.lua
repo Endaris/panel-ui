@@ -24,7 +24,7 @@ local HorizontalFlexLayout = require("ui.Layouts.HorizontalFlexLayout")
 ---@field padding number
 ---@field childGap number
 ---@field id integer unique identifier of the element
----@field layout Layout
+---@field layout FlexLayout
 ---@field onTouch function? touch callback for when the element is being touched
 ---@field onDrag function? touch callback for when the mouse touching the element is dragged across the screen
 ---@field onRelease function? touch callback for when the mouse touching the element is released
@@ -46,7 +46,7 @@ local HorizontalFlexLayout = require("ui.Layouts.HorizontalFlexLayout")
 ---@field vFill boolean? if the element's height should fill out the entire parent's height
 ---@field isVisible boolean? if the element is currently visible for rendering (also disables touch interaction)
 ---@field isEnabled boolean? if the element is currently eligible for touch interaction
----@field layout Layout?
+---@field layout FlexLayout?
 ---@field backgroundColor color?
 ---@field padding number?
 ---@field childGap number?
