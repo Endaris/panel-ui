@@ -1,4 +1,4 @@
-local HorizontalLayout = require("ui.Layouts.HorizontalLayout")
+local HorizontalFlexLayout = require("ui.Layouts.HorizontalFlexLayout")
 
 ---@alias color { [1]: number, [2]: number, [3]: number, [4]: number }
 
@@ -107,7 +107,7 @@ local UIElement = Class(
   end
 )
 
-UIElement.layout = HorizontalLayout
+UIElement.layout = HorizontalFlexLayout
 UIElement.TYPE = "UIElement"
 
 function UIElement:addChild(uiElement)
