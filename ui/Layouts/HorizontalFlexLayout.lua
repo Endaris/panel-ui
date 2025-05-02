@@ -141,6 +141,8 @@ function HorizontalFlexLayout.positionChildren(uiElement)
     elseif child.vAlign == "bottom" then
       child.y = (uiElement.height - child.height) - uiElement.padding
     end
+    child.x = math.round(child.x)
+    child.y = math.round(child.y)
     x = x + uiElement.childGap + child.width
   end
 

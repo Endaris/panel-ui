@@ -1,7 +1,7 @@
 local UiElement = require("ui.UIElement")
 
 local Text = Class(function(self, options)
-  self.text = "Lorem ipsum dolor imet tinga darim batsi frum. Lorem ipsum dolor imet tinga darim batsi frum. Lorem ipsum dolor imet tinga darim batsi frum."
+  self.text = options.text or "Lorem ipsum dolor imet tinga darim batsi frum. Lorem ipsum dolor imet tinga darim batsi frum. Lorem ipsum dolor imet tinga darim batsi frum."
   self.font = love.graphics.getFont()
   local words = self.text:split()
   local max = self.font:getWidth(words[1])

@@ -141,6 +141,8 @@ function VerticalFlexLayout.positionChildren(uiElement)
     elseif child.hAlign == "right" then
       child.x = (uiElement.width - child.width) - uiElement.padding
     end
+    child.x = math.round(child.x)
+    child.y = math.round(child.y)
     y = y + uiElement.childGap + child.height
   end
 

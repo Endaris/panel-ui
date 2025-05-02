@@ -11,7 +11,7 @@ end
 local uiRoot
 
 function love.load(arg)
-  uiRoot = require("claySample")
+  uiRoot = require("battleRoomScene")
 end
 
 function love.update(dt)
